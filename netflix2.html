@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+   <style>
+  :root {
+    --primary-color: #e50914;
+    --dark-color: #141414;
+    --light-color: #f5f5f5;
+    --gray-color: #999;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-item {
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .nav-item:hover {
+    color: var(--primary-color);
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .hero-banner {
+    margin-top: 70px;
+    height: 80vh; /* reduced from 100vh */
+    position: relative;
+    background: black;
+    overflow: hidden;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+  }
+
+  .hero-content {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    color: white;
+    max-width: 45%;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .hero-button {
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .primary-button {
+    background-color: white;
+    color: black;
+  }
+
+  .secondary-button {
+    background-color: rgba(109, 109, 110, 0.7);
+    color: white;
+  }
+
+  .hero-icon {
+    margin-right: 0.5rem;
+  }
+
+  .movie-rows {
+    padding: 3rem 2rem;
+    margin-top: 1rem; /* Increased spacing below hero banner */
+  }
+
+  .row {
+    margin-bottom: 2.5rem;
+  }
+
+  .row-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .row-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+
+  .row-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .movie-card {
+    min-width: 200px;
+    height: 300px;
+    margin-right: 1rem;
+    transition: transform 0.3s;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .movie-card:hover {
+    transform: scale(1.1);
+    z-index: 1;
+  }
+
+  .movie-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .footer {
+    padding: 2rem;
+    text-align: center;
+    background-color: #000;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+    color: var(--gray-color);
+  }
+
+  @media (max-width: 768px) {
+    .hero-content {
+      bottom: 10%;
+      max-width: 90%;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+
+    .movie-card {
+      min-width: 150px;
+      height: 225px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-buttons {
+      flex-direction: column;
+    }
+
+    .hero-button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .movie-card {
+      min-width: 130px;
+      height: 200px;
+    }
+  }
+</style>
+
+
+</head>
+<body>
+    <header class="header">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b50451bb-d5a2-4d24-8a3e-d50e51ca632f.png" alt="Netflix logo in red color with black background" class="logo">
+        <nav class="nav">
+            <div class="nav-item">Home</div>
+            <div class="nav-item">TV Shows</div>
+            <div class="nav-item">Movies</div>
+            <div class="nav-item">New & Popular</div>
+            <div class="nav-item">My List</div>
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5d3f2414-9821-40e0-8fba-69483539f4a8.png" alt="User profile avatar" class="avatar">
+        </nav>
+    </header>
+
+    <div class="hero-banner">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0d707e17-a8a3-4702-b63d-869e43ccac2c.png" alt="Featured action movie poster showing a hero in dramatic pose with explosions in the background" class="hero-image">
+        <div class="hero-content">
+            <h1 class="hero-title">The Last Adventure</h1>
+            <p class="hero-description">In a world on the brink of collapse, one hero must rise to fight against all odds. Epic battles, unexpected twists, and heart-stopping action await.</p>
+            <div class="hero-buttons">
+                <button class="hero-button primary-button">
+                    <span class="hero-icon">▶</span>
+                    Play
+                </button>
+                <button class="hero-button secondary-button">
+                    <span class="hero-icon">ⓘ</span>
+                    More Info
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-rows">
+        <div class="row">
+            <h2 class="row-title">Trending Now</h2>
+            <div class="row-container">
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a83fe525-ed0e-4296-a737-f6b465e057bf.png" alt="Movie poster: Action thriller with intense chase scene through city streets" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d7b6a879-ec17-46f0-b843-227284e69498.png" alt="Movie poster: Science fiction epic featuring futuristic cityscapes and alien encounters" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/374d8462-d7cc-48ff-83fa-34930faea889.png" alt="Movie poster: Emotional family drama with actors in poignant performance" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/28c13f91-18a5-4d74-aee0-5ededc438268.png" alt="Movie poster: Light-hearted comedy with characters laughing in colorful setting" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5152fc76-2fbb-49e2-855f-5d32c6ba5bb9.png" alt="Movie poster: Creepy horror movie with dark atmosphere and mysterious figure" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/67f24494-bae1-4da0-bbbd-1de478b51860.png" alt="Movie poster: Romantic movie with couple in passionate embrace at sunset" class="movie-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2 class="row-title">Popular on Netflix</h2>
+            <div class="row-container">
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ea3e19e9-7cc4-40b3-8575-263ab7ce765a.png" alt="Movie poster: Gritty crime drama with detectives investigating crime scene" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/67603348-0c1a-4b03-9461-9b4ec11bf3fe.png" alt="Movie poster: High fantasy movie with dragons and medieval warriors" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bb57d071-d388-4e0c-9129-57ea056e19eb.png" alt="Movie poster: Nature documentary featuring underwater marine life" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3dd15f8b-4017-4d5e-b12c-1c8de8ba178e.png" alt="Movie poster: Comic book superhero in iconic pose with special effects" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7d235cd5-a7cb-4c5e-8b90-f96a48a29b72.png" alt="Movie poster: Colorful animated film with talking animals in forest" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/deb88ecd-8cdf-4448-81ee-8054e537bdb5.png" alt="Movie poster: International spy thriller with agent in exotic location" class="movie-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2 class="row-title">Continue Watching</h2>
+            <div class="row-container">
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0cfe9cf3-f579-408c-9532-88e65150e541.png" alt="Movie poster: Classic western with cowboy on horseback in desert" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/054f6dc9-5e4b-4d2f-94f0-f4dfa236fbd3.png" alt="Movie poster: Period drama set in 19th century with elegant costumes" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b0e78db2-1369-4952-b052-a5e77137f0ba.png" alt="Movie poster: Coming-of-age teen drama set in high school" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8b1698b3-55f9-4cb3-a78b-a4c009211015.png" alt="Movie poster: Broadway-style musical with energetic dance number" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1d424404-c9c4-4345-a794-60e1ffdde8a9.png" alt="Movie poster: Dark dystopian future with rebels fighting oppression" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7269e3f9-5762-4aca-be28-212c02d2b79f.png" alt="Movie poster: Whodunit mystery with suspects in shadowy room" class="movie-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2 class="row-title">New Releases</h2>
+            <div class="row-container">
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a3b99679-a769-4282-875d-7daf6687c601.png" alt="Movie poster: Inspirational sports drama with underdog team celebrating" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/43e4ace3-d759-4887-938f-fc105c4f5642.png" alt="Movie poster: Buddy action comedy with mismatched partners in car chase" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/231bf4bb-2bff-4cc7-9128-04dc29320700.png" alt="Movie poster: Intense war movie with soldiers in battle" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2cbd2978-bf1f-436a-a599-71f249684863.png" alt="Movie poster: Grand space adventure with astronauts exploring alien planet" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f847c03c-9a26-406d-9355-0f2196ff5331.png" alt="Movie poster: Film noir style crime mystery in rainy city street" class="movie-image">
+                </div>
+                <div class="movie-card">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1584d404-7b41-444b-bf5f-260a37fe4506.png" alt="Movie poster: Historical biography film with actor portraying famous figure" class="movie-image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p class="footer-text">© 2023 Netflix Clone - For Educational Purposes Only</p>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(20, 20, 20, 0.9)';
+            } else {
+                header.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%)';
+            }
+        });
+
+        // Movie card hover effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const movieCards = document.querySelectorAll('.movie-card');
+            
+            movieCards.forEach(card => {
+                card.addEventListener('mouseover', function() {
+                    const row = this.closest('.row-container');
+                    const cardsInRow = row.querySelectorAll('.movie-card');
+                    
+                    cardsInRow.forEach(c => {
+                        if (c !== this) {
+                            c.style.transform = 'scale(0.9)';
+                        }
+                    });
+                });
+                
+                card.addEventListener('mouseout', function() {
+                    const row = this.closest('.row-container');
+                    const cardsInRow = row.querySelectorAll('.movie-card');
+                    
+                    cardsInRow.forEach(c => {
+                        c.style.transform = 'scale(1)';
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

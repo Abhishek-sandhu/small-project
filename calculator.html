@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(145deg, #e6f0ff, #ffffff);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    .calculator {
+      background-color: #a0c4ff;
+      border: 4px solid #003566;
+      border-radius: 2rem;
+      box-shadow: 8px 8px 15px #7f8ca4, -8px -8px 15px #d4e1ff;
+      width: 320px;
+      max-width: 95vw;
+      padding: 1.5rem 1.75rem;
+      user-select: none;
+    }
+    .display {
+      background: #2a9d8f;
+      border-radius: 1rem;
+      padding: 0.7rem 1rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #dcf0f1;
+      text-align: right;
+      box-shadow: inset 2px 2px 8px rgba(0,0,0,0.3);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.4rem;
+      height: 3.6rem;
+      overflow-x: auto;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.8rem;
+    }
+    button {
+      background-color: #cbd5e1;
+      border-radius: 0.7rem;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #1e293b;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.2), -3px -3px 6px #ffffff;
+      user-select: none;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    button.operator {
+      background-color: #ff7f7f;
+      color: #5a0000;
+      box-shadow: 3px 3px 8px #bf4040, -3px -3px 8px #ffb0b0;
+    }
+    button.zero {
+      grid-column: span 2;
+    }
+    button:active {
+      box-shadow: inset 3px 3px 6px rgba(0,0,0,0.3);
+    }
+    /* Scrollbar for display */
+    .display::-webkit-scrollbar {
+      height: 6px;
+    }
+    .display::-webkit-scrollbar-thumb {
+      background: #004d40;
+      border-radius: 10px;
+    }
+    .display::-webkit-scrollbar-track {
+      background: #2a9d8f;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <main class="calculator" role="application" aria-label="Calculator">
+    <div id="display" class="display" aria-live="polite" aria-atomic="true">0</div>
+    <div class="buttons">
+      <button type="button" aria-label="Clear" id="clear" class="operator">C</button>
+      <button type="button" aria-label="Square Root" id="sqrt" class="operator">√</button>
+      <button type="button" aria-label="Percent" id="percent" class="operator">%</button>
+      <button type="button" aria-label="Divide" data-action="/" class="operator">÷</button>
+      <button type="button" aria-label="Multiply" data-action="*" class="operator">×</button>
+      <button type="button" aria-label="7" data-number="7">7</button>
+      <button type="button" aria-label="8" data-number="8">8</button>
+      <button type="button" aria-label="9" data-number="9">9</button>
+      <button type="button" aria-label="Subtract" data-action="-" class="operator">−</button>
+      <button type="button" aria-label="Add" data-action="+" class="operator">+</button>
+      <button type="button" aria-label="4" data-number="4">4</button>
+      <button type="button" aria-label="5" data-number="5">5</button>
+      <button type="button" aria-label="6" data-number="6">6</button>
+      <div></div> <!-- blank cell for spacing -->
+      <div></div>
+      <button type="button" aria-label="1" data-number="1">1</button>
+      <button type="button" aria-label="2" data-number="2">2</button>
+      <button type="button" aria-label="3" data-number="3">3</button>
+      <button type="button" aria-label="Decimal point" data-number=".">.</button>
+      <button type="button" aria-label="Equals" id="equals" class="operator">=</button>
+      <button type="button" aria-label="0" data-number="0" class="zero">0</button>
+      <div></div>
+      <div></div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const display = document.getElementById('display');
+      const clearBtn = document.getElementById('clear');
+      const equalsBtn = document.getElementById('equals');
+      const sqrtBtn = document.getElementById('sqrt');
+      const percentBtn = document.getElementById('percent');
+
+      let currentInput = '0';
+      let lastInput = '';
+      let resetNext = false;
+
+      // Update display safely with formatter to avoid weird values
+      function updateDisplay(value) {
+        // Limit length to prevent overflow
+        let strValue = String(value);
+        if (strValue.length > 15) {
+          strValue = Number(strValue).toExponential(8);
+        }
+        display.textContent = strValue;
+      }
+
+      // Append digit or dot
+      function appendNumber(num) {
+        if (resetNext) {
+          currentInput = num === '.' ? '0.' : num;
+          resetNext = false;
+        } else {
+          if (num === '.' && currentInput.includes('.')) return;
+          if (currentInput === '0' && num !== '.') {
+            currentInput = num;
+          } else {
+            currentInput += num;
+          }
+        }
+        updateDisplay(currentInput);
+      }
+
+      // Calculator state and operations
+      let operand1 = null;
+      let operator = null;
+
+      function performOperation() {
+        if (operator && operand1 !== null) {
+          try {
+            let result;
+            const op1 = Number(operand1);
+            const op2 = Number(currentInput);
+            switch (operator) {
+              case '+': result = op1 + op2; break;
+              case '-': result = op1 - op2; break;
+              case '*': result = op1 * op2; break;
+              case '/': 
+                if (op2 === 0) throw "Division by zero";
+                result = op1 / op2; 
+                break;
+              default: result = op2;
+            }
+            if (!isFinite(result)) throw "Math error";
+            currentInput = String(result);
+            updateDisplay(currentInput);
+            operand1 = null;
+            operator = null;
+            resetNext = true;
+          } catch (e) {
+            currentInput = 'Error';
+            updateDisplay(currentInput);
+            operand1 = null;
+            operator = null;
+            resetNext = true;
+          }
+        }
+      }
+
+      // Set operator and prepare for input
+      function setOperator(op) {
+        if (operator && !resetNext) {
+          performOperation();
+        } else if (!operator) {
+          operand1 = currentInput;
+        }
+        operator = op;
+        resetNext = true;
+      }
+
+      // Clear all
+      function clearAll() {
+        currentInput = '0';
+        operand1 = null;
+        operator = null;
+        resetNext = false;
+        updateDisplay(currentInput);
+      }
+
+      // Square root function
+      function squareRoot() {
+        try {
+          const num = Number(currentInput);
+          if (num < 0) throw "Invalid input for square root";
+          const result = Math.sqrt(num);
+          currentInput = String(result);
+          updateDisplay(currentInput);
+          resetNext = true;
+        } catch {
+          currentInput = 'Error';
+          updateDisplay(currentInput);
+          resetNext = true;
+        }
+      }
+
+      // Percentage function (interpreted as current value / 100)
+      function percentage() {
+        try {
+          const num = Number(currentInput);
+          const result = num / 100;
+          currentInput = String(result);
+          updateDisplay(currentInput);
+          resetNext = true;
+        } catch {
+          currentInput = 'Error';
+          updateDisplay(currentInput);
+          resetNext = true;
+        }
+      }
+
+      // Event listeners for number buttons and operators
+      document.querySelectorAll('button[data-number]').forEach(button => {
+        button.addEventListener('click', () => {
+          appendNumber(button.dataset.number);
+        });
+      });
+
+      document.querySelectorAll('button[data-action]').forEach(button => {
+        button.addEventListener('click', () => {
+          setOperator(button.dataset.action);
+        });
+      });
+
+      clearBtn.addEventListener('click', () => {
+        clearAll();
+      });
+
+      equalsBtn.addEventListener('click', () => {
+        performOperation();
+      });
+
+      sqrtBtn.addEventListener('click', () => {
+        squareRoot();
+      });
+
+      percentBtn.addEventListener('click', () => {
+        percentage();
+      });
+
+      // Keyboard support for accessibility
+      window.addEventListener('keydown', e => {
+        if ((e.key >= '0' && e.key <= '9') || e.key === '.') {
+          appendNumber(e.key);
+          e.preventDefault();
+        } else if (['+', '-', '*', '/'].includes(e.key)) {
+          setOperator(e.key);
+          e.preventDefault();
+        } else if (e.key === 'Enter' || e.key === '=') {
+          performOperation();
+          e.preventDefault();
+        } else if (e.key === 'Backspace') {
+          // Remove last char
+          if (!resetNext) {
+            currentInput = currentInput.slice(0, -1);
+            if (currentInput.length === 0) currentInput = '0';
+            updateDisplay(currentInput);
+          }
+          e.preventDefault();
+        } else if (e.key.toLowerCase() === 'c') {
+          clearAll();
+          e.preventDefault();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+

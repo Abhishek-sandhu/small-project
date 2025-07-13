@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Projects | Abhi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+    />
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      } @keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+      .hero {
+        background-image: url('https://source.unsplash.com/1600x900/?business,technology');
+        background-size: cover;
+        background-position: center;
+      }
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <header class="bg-white shadow">
+      <nav class="max-w-6xl mx-auto flex justify-between items-center p-4">
+        <div class="text-2xl font-bold text-blue-600">Abhi's Projects</div>
+        <ul class="flex space-x-6">
+          <li><a href="#projects" class="text-gray-600 hover:text-blue-600">Projects</a></li>
+          <li><a href="#about" class="text-gray-600 hover:text-blue-600">About</a></li>
+          <li><a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero h-64 flex items-center justify-center text-white">
+      <div class="text-center">
+        <<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 to-pink-500 animate-fade-in">
+  🚀 Welcome to <span class="underline decoration-wavy decoration-yellow-400 underline-offset-4">My Projects</span>
+</h1>
+
+        <p class="text-lg mb-4">Innovative solutions built with HTML, CSS, and ❤️</p>
+        <a href="#projects" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300">
+          View Projects
+        </a>
+      </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto text-center mt-10" id="projects">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Projects</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Project Cards -->
+        <a
+          href="amazon.html"
+          class="project-card bg-white shadow-lg p-6 rounded-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold text-gray-800">🛒 Amazon Clone</h3>
+          <p class="text-sm text-gray-500">E-commerce homepage UI</p>
+        </a>
+
+        <a
+          href="calculator.html"
+          class="project-card bg-white shadow-lg p-6 rounded-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold text-gray-800">🧮 Calculator</h3>
+          <p class="text-sm text-gray-500">Simple calculator app</p>
+        </a>
+
+        <a
+          href="landingpage.html"
+          class="project-card bg-white shadow-lg p-6 rounded-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold text-gray-800">🌐 Landing Page</h3>
+          <p class="text-sm text-gray-500">Beautiful landing page layout</p>
+        </a>
+
+        <a
+          href="login2.html"
+          class="project-card bg-white shadow-lg p-6 rounded-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold text-gray-800">🔐 Login Page</h3>
+          <p class="text-sm text-gray-500">User  login UI</p>
+        </a>
+
+        <a
+          href="netflix2.html"
+          class="project-card bg-white shadow-lg p-6 rounded-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold text-gray-800">🎬 Netflix Clone</h3>
+          <p class="text-sm text-gray-500">Streaming service homepage</p>
+        </a>
+
+        <a
+          href="portfolio3.html"
+          class="project-card bg-white shadow-lg p-6 rounded-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold text-gray-800">📰 Portfolio Page</h3>
+          <p class="text-sm text-gray-500">Abhishek portfolio</p>
+        </a>
+
+        <a
+          href="weather.html"
+          class="project-card bg-white shadow-lg p-6 rounded-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold text-gray-800">🌦️ Weather App</h3>
+          <p class="text-sm text-gray-500">Weather forecast UI</p>
+        </a>
+        <a
+          href="portfolio.html"
+          class="project-card bg-white shadow-lg p-6 rounded-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold text-gray-800">📰 Portfolio Page</h3>
+          <p class="text-sm text-gray-500">Abhinandan portfolio</p>
+        </a>
+
+      </div>
+    </div>
+
+    <section class="bg-gray-200 py-10" id="about">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">About Us</h2>
+        <p class="text-gray-600 mb-4">
+          We are dedicated to creating innovative web solutions that enhance user experience and drive business success.
+        </p>
+        <p class="text-gray-600">
+          Our team is passionate about technology and committed to delivering high-quality projects that meet our clients' needs.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-10" id="contact">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Contact Us</h2>
+        <p class="text-gray-600 mb-4">Have questions or want to work together? Reach out to us!</p>
+        <a href="mailto:abhinandansahore46@gmail.com" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300">
+          Get in Touch
+        </a>
+      </div>
+    </section>
+
+    <footer class="bg-white py-4">
+      <div class="max-w-6xl mx-auto text-center text-sm text-gray-400">
+        &copy; 2025 Abhi | All Rights Reserved | Hosted with ❤️ on Netlify
+      </div>
+    </footer>
+  </body>
+</html>

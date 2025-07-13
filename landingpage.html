@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premier Fashion Brands | Curated Collections</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --text-light: #e4e4e7;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #f9fafb;
+            color: var(--primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .brand-card {
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #f43f5e, #ec4899);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d5a5e3c4-def2-4cf0-9aca-4cf13b6c6243.png') no-repeat;
+            background-size: cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: linear-gradient(90deg, #ec4899, #f43f5e);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .brand-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1rem;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .brand-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-gray-900">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">BRND</span>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-8">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">Home</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900">Brands</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900">Collections</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900">About</a>
+                </div>
+                <div class="flex items-center">
+                    <button class="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:opacity-90 transition">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Discover Premier Fashion Brands</h1>
+                <p class="text-xl max-w-3xl mx-auto opacity-90">Curated selection of the world's most sought-after clothing and lifestyle brands</p>
+                <div class="mt-8 flex justify-center space-x-4">
+                    <button class="bg-white text-gray-900 px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition">Explore Brands</button>
+                    <button class="border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:bg-opacity-10 transition">Latest Drops</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Showcase -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="badge mb-4">Premium Selection</span>
+                <h2 class="text-3xl font-bold mb-4">Featured Brands</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Shop directly from authentic brand stores</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Nike -->
+                <div class="brand-card group">
+                    <a href="https://www.nike.com" target="_blank" rel="noopener noreferrer" class="block">
+                        <div class="relative aspect-square">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/86d99154-c132-4671-843c-2af315b80033.png" alt="Nike brand showcase featuring latest Air Jordan sneakers and sports apparel" class="w-full h-full object-cover" />
+                            <div class="brand-overlay">
+                                <h3 class="text-xl font-bold">Nike</h3>
+                                <p class="text-sm opacity-80">Just Do It</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 group-hover:text-gray-900 transition">World leader in athletic footwear and apparel with innovative designs.</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Adidas -->
+                <div class="brand-card group">
+                    <a href="https://www.adidas.com" target="_blank" rel="noopener noreferrer" class="block">
+                        <div class="relative aspect-square">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7de4cc87-ed50-40be-aae5-697395aba2ea.png" alt="Adidas Originals collection featuring classic tracksuits and sneakers" class="w-full h-full object-cover" />
+                            <div class="brand-overlay">
+                                <h3 class="text-xl font-bold">Adidas</h3>
+                                <p class="text-sm opacity-80">Impossible is Nothing</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 group-hover:text-gray-900 transition">German sportswear giant known for its iconic three-stripe designs.</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Gucci -->
+                <div class="brand-card group">
+                    <a href="https://www.gucci.com" target="_blank" rel="noopener noreferrer" class="block">
+                        <div class="relative aspect-square">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6fc8581d-0068-4718-8ece-f005d8c2afe1.png" alt="Luxury Gucci fashion items showcasing the brand's iconic GG pattern" class="w-full h-full object-cover" />
+                            <div class="brand-overlay">
+                                <h3 class="text-xl font-bold">Gucci</h3>
+                                <p class="text-sm opacity-80">Quality is Remembered</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 group-hover:text-gray-900 transition">Italian luxury brand renowned for its high-end fashion and accessories.</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Louis Vuitton -->
+                <div class="brand-card group">
+                    <a href="https://www.louisvuitton.com" target="_blank" rel="noopener noreferrer" class="block">
+                        <div class="relative aspect-square">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e7c84a18-cfef-4cb3-b05c-0caceea4e6c5.png" alt="Elegant Louis Vuitton handbags and luggage collection" class="w-full h-full object-cover" />
+                            <div class="brand-overlay">
+                                <h3 class="text-xl font-bold">Louis Vuitton</h3>
+                                <p class="text-sm opacity-80">The Art of Travel</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 group-hover:text-gray-900 transition">French fashion house specializing in luxury trunks and leather goods.</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Prada -->
+                <div class="brand-card group">
+                    <a href="https://www.prada.com" target="_blank" rel="noopener noreferrer" class="block">
+                        <div class="relative aspect-square">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/843610c6-0830-4753-8e2f-c9c113486d6a.png" alt="Sophisticated Prada runway looks featuring clean lines and minimalist design" class="w-full h-full object-cover" />
+                            <div class="brand-overlay">
+                                <h3 class="text-xl font-bold">Prada</h3>
+                                <p class="text-sm opacity-80">Contemporary Elegance</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 group-hover:text-gray-900 transition">Milanese fashion house known for its minimalist aesthetic and nylon bags.</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Balenciaga -->
+                <div class="brand-card group">
+                    <a href="https://www.balenciaga.com" target="_blank" rel="noopener noreferrer" class="block">
+                        <div class="relative aspect-square">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f3e76c2b-c106-48be-a3cf-b60ec15206a2.png" alt="Avant-garde Balenciaga streetwear and oversized silhouettes" class="w-full h-full object-cover" />
+                            <div class="brand-overlay">
+                                <h3 class="text-xl font-bold">Balenciaga</h3>
+                                <p class="text-sm opacity-80">Shape the Future</p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 group-hover:text-gray-900 transition">Cutting-edge luxury brand pushing boundaries in contemporary fashion.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button class="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition">
+                    View All Brands
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collections -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="badge mb-4">New Arrivals</span>
+                <h2 class="text-3xl font-bold mb-4">Seasonal Collections</h2>
+                <p class="max-w-2xl mx-auto text-gray-600">Explore the latest drops from our partner brands</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="relative rounded-xl overflow-hidden group">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/87821cd3-ba66-4271-9b81-b977dc98880f.png" alt="Summer 2023 collection featuring bright colors and lightweight fabrics" class="w-full h-64 object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Summer Collection</h3>
+                            <p class="text-white text-sm opacity-80">Lightweight fabrics & vibrant colors</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative rounded-xl overflow-hidden group">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fb76386c-297c-4c9f-9137-fb463bc26f8b.png" alt="Streetwear essentials collection featuring hoodies, sneakers, and urban styles" class="w-full h-64 object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Streetwear Essentials</h3>
+                            <p class="text-white text-sm opacity-80">Urban styles you'll love</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative rounded-xl overflow-hidden group">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/73379592-5e50-4454-99c5-7ebe837afdb9.png" alt="Luxury winter coats and accessories from premium fashion brands" class="w-full h-64 object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Winter Luxury</h3>
+                            <p class="text-white text-sm opacity-80">Stay warm in style</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6">Stay Updated on New Releases</h2>
+            <p class="max-w-2xl mx-auto mb-8 opacity-90">Get notified about new brand arrivals, exclusive drops, and special offers.</p>
+            
+            <div class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 rounded-l-lg focus:outline-none text-gray-900">
+                <button class="bg-gradient-to-r from-pink-500 to-rose-500 px-6 py-3 rounded-r-lg font-medium hover:opacity-90 transition">
+                    Subscribe
+                </button>
+            </div>
+            
+            <p class="mt-4 text-sm opacity-70">We respect your privacy. Unsubscribe at any time.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">BRND</h3>
+                    <p class="text-gray-600">Curated fashion brands showcase connecting you to the world's best clothing and lifestyle brands.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Brands</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">All Brands</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Featured</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Popular</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Our Story</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Partnerships</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Careers</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Connect</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Help Center</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Instagram</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-gray-900">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
+                <p>© 2023 BRND Fashion Portal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Brand card interaction enhancement
+        document.querySelectorAll('.brand-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
+            });
+        });
+    </script>
+</body>
+</html>
+

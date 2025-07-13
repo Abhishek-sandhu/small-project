@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Weather App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Background style with cartoon sun, clouds and balloon drawn with CSS shapes for dynamic look */
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #67aef9 0%, #5595e9 60%, #4a86db 100%);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    /* Container with blur and frosted glass effect */
+    .weather-container {
+      width: 320px;
+      background: rgba(255 255 255 / 0.15);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgb(0 0 0 / 0.1);
+      padding: 2.5rem 2rem 3rem;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      position: relative;
+      z-index: 10;
+    }
+    /* Search input container */
+    .search-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-radius: 12px;
+      background: rgba(255 255 255 / 0.25);
+      padding: 0.6rem 1rem;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 400;
+      box-shadow: inset 0 0 8px rgb(255 255 255 / 0.3);
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .search-box button {
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      filter: drop-shadow(0 0 2px #fff);
+      transition: filter 0.2s ease;
+    }
+    .search-box button:hover {
+      filter: drop-shadow(0 0 5px #fff);
+    }
+    /* Weather icon container */
+    .weather-icon {
+      width: 110px;
+      height: 110px;
+      filter: drop-shadow(0 0 5px rgba(255 255 255 / 0.9));
+    }
+    /* Temperature text style */
+    .temperature {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.2rem;
+    }
+    .temperature span {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-top: 0.4rem;
+    }
+    /* Weather description text */
+    .description {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: capitalize;
+      color: #f0f8ffdd;
+      filter: drop-shadow(0 0 3px #0004);
+    }
+    /* Bottom info container with humidity and wind */
+    .weather-info {
+      margin-top: 1rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      font-weight: 600;
+      font-size: 1rem;
+      gap: 2rem;
+      color: #e0ecffcc;
+      user-select: none;
+    }
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      text-shadow: 0 0 4px rgba(0,0,0,0.3);
+      min-width: 70px;
+    }
+    .info-block svg {
+      fill: #6fb9f6cc;
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 1px 1px #0002);
+      margin-bottom: 0.15rem;
+    }
+
+    /* Cartoon sun in top left */
+    .sun {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at center, #ffd700 40%, #f7b800 70%, #d19900 90%);
+      border-radius: 50%;
+      box-shadow: 0 0 25px 10px #ffe35d88;
+      z-index: 1;
+    }
+    .sun::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 140px;
+      height: 140px;
+      margin-left: -70px;
+      margin-top: -70px;
+      border-radius: 50%;
+      box-shadow:
+        0 -80px 20px -60px #fddb2799,
+        55px -55px 20px -60px #fddb2799,
+        80px 0px 20px -60px #fddb2799,
+        55px 55px 20px -60px #fddb2799,
+        0px 80px 20px -60px #fddb2799,
+        -55px 55px 20px -60px #fddb2799,
+        -80px 0px 20px -60px #fddb2799,
+        -55px -55px 20px -60px #fddb2799;
+    }
+    /* Cartoon clouds on left and right */
+    .cloud {
+      position: absolute;
+      background: #dde6f3dd;
+      border-radius: 40px;
+      box-shadow: inset -8px 8px 12px #cfd9ee;
+      filter: drop-shadow(0 0 6px #afc3e6dd);
+      z-index: 1;
+    }
+    .cloud.left {
+      top: 140px;
+      left: 100px;
+      width: 180px;
+      height: 70px;
+    }
+    .cloud.left::before, .cloud.left::after {
+      content: "";
+      position: absolute;
+      background: #dde6f3dd;
+      border-radius: 50%;
+      box-shadow: inset -8px 8px 12px #cfd9ee;
+    }
+    .cloud.left::before {
+      width: 80px;
+      height: 80px;
+      top: -30px;
+      left: 15px;
+    }
+    .cloud.left::after {
+      width: 100px;
+      height: 100px;
+      top: -35px;
+      left: 75px;
+    }
+    .cloud.right {
+      top: 70px;
+      right: 60px;
+      width: 140px;
+      height: 55px;
+    }
+    .cloud.right::before, .cloud.right::after {
+      content: "";
+      position: absolute;
+      background: #dde6f3dd;
+      border-radius: 50%;
+      box-shadow: inset -8px 8px 12px #cfd9ee;
+    }
+    .cloud.right::before {
+      width: 65px;
+      height: 65px;
+      top: -25px;
+      left: 15px;
+    }
+    .cloud.right::after {
+      width: 70px;
+      height: 70px;
+      top: -28px;
+      left: 75px;
+    }
+    /* Hot air balloon shape on the right bottom */
+    .balloon {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      width: 140px;
+      height: 180px;
+      filter: drop-shadow(0 3px 5px #00000077);
+      z-index: 1;
+    }
+    .balloon .balloon-top {
+      width: 140px;
+      height: 140px;
+      background: repeating-conic-gradient(
+        from 0deg,
+        #46b6c9 0deg 20deg,
+        #f5a623 20deg 40deg,
+        #ffffff 40deg 70deg
+      );
+      border-radius: 100% 100% 90% 90% / 100% 100% 80% 80%;
+      box-shadow: inset 0 10px 50px #c5f2fea8, 0 4px 10px rgb(0 0 0 / 0.3);
+      position: relative;
+      z-index: 3;
+    }
+    .balloon .basket {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 65px;
+      height: 40px;
+      background: #3caf44;
+      border-radius: 10px 10px 12px 12px;
+      box-shadow: inset -3px -2px 10px #529e4a, 0 3px 6px rgb(0 0 0 / 0.25);
+      z-index: 5;
+    }
+    .balloon .strings {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 70px;
+      z-index: 4;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+    .balloon .strings div {
+      width: 4px;
+      background: #bbe3d6;
+      border-radius: 2px;
+      box-shadow: 0 0 4px #7bbba0;
+    }
+    /* Responsive adjustments */
+    @media (max-width: 400px) {
+      .weather-container {
+        width: 90vw;
+        padding: 2rem 1.5rem 2.5rem;
+      }
+      .temperature {
+        font-size: 2.8rem;
+      }
+      .weather-icon {
+        width: 90px;
+        height: 90px;
+      }
+      .sun {
+        width: 90px;
+        height: 90px;
+        top: 20px;
+        left: 20px;
+      }
+      .balloon {
+        width: 90px;
+        height: 110px;
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="cloud left" aria-hidden="true"></div>
+  <div class="cloud right" aria-hidden="true"></div>
+  <div class="balloon" aria-hidden="true">
+    <div class="balloon-top"></div>
+    <div class="strings">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="basket"></div>
+  </div>
+  <main class="weather-container" role="main" aria-label="Weather forecast widget">
+    <form id="searchForm" class="search-box" aria-label="Search for city weather">
+      <input
+        type="text"
+        id="cityInput"
+        name="city"
+        placeholder="Enter city name"
+        autocomplete="off"
+        aria-label="City name"
+        required
+        spellcheck="false"
+        />
+      <button type="submit" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" >
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </form>
+
+    <picture class="weather-icon" id="weatherIcon" aria-hidden="true">
+      <!-- Dynamic SVG icon inserted here -->
+    </picture>
+
+    <div class="temperature" aria-live="polite">
+      <span id="tempValue">--</span><span>°C</span>
+    </div>
+
+    <div class="description" id="weatherDescription" aria-live="polite">Enter a city to get weather</div>
+
+    <section class="weather-info" aria-label="Additional weather details">
+      <div class="info-block">
+        <!-- humidity icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 2 C18 22 18 38 32 62 C46 38 46 22 32 2 Z" fill="none" stroke="currentColor" stroke-width="4" /></svg>
+        <span id="humidity">-- %</span>
+        <small>Humidity</small>
+      </div>
+      <div class="info-block">
+        <!-- wind icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 32 H54 M30 22 L26 10 M38 42 L42 54" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+        <span id="windSpeed">-- km/h</span>
+        <small>Wind speed</small>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // API key from openweathermap
+    // NOTE: Replace 'YOUR_API_KEY_HERE' with your own API key
+    const apiKey = "561a97463047a7c3ca2143ae55b33897";
+
+    // Weather icon map for OpenWeather conditions to custom SVG icons with clarity on type
+    const iconMap = {
+      '01d': `<svg viewBox="0 0 64 64" fill="none" stroke="#ffd93b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="12" fill="#ffd93b"/></svg>`, // clear day sun
+      '01n': `<svg viewBox="0 0 64 64" fill="none" stroke="#cbd7f7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="26" r="12" fill="#8aa3ff"/><path d="M40 40a14 14 0 1 1-14-14" fill="#15204d" /></svg>`, // clear night moon
+      '02d': `<svg viewBox="0 0 64 64" fill="none" stroke="#ffd93b" stroke-width="2"><circle cx="32" cy="26" r="12" fill="#ffd93b"/><ellipse cx="45" cy="30" rx="18" ry="12" fill="#dde6f3" stroke="#a3bced" /></svg>`, // few clouds day
+      '02n': `<svg viewBox="0 0 64 64" fill="none" stroke="#cbd7f7" stroke-width="2"><circle cx="26" cy="26" r="12" fill="#8aa3ff"/><ellipse cx="38" cy="33" rx="18" ry="12" fill="#15204d" stroke="#4861ad" /></svg>`, // few clouds night
+      '03d': `<svg viewBox="0 0 64 64" fill="#dde6f3" stroke="#a3bced" stroke-width="3" stroke-linejoin="round"><ellipse cx="32" cy="35" rx="24" ry="18"/></svg>`, // scattered clouds day
+      '03n': `<svg viewBox="0 0 64 64" fill="#15204d" stroke="#4861ad" stroke-width="3" stroke-linejoin="round"><ellipse cx="32" cy="35" rx="24" ry="18"/></svg>`, // scattered clouds night
+      '04d': `<svg viewBox="0 0 64 64" fill="#bccce1" stroke="#8cabbf" stroke-width="3" stroke-linejoin="round"><ellipse cx="32" cy="35" rx="28" ry="18"/></svg>`, // broken clouds day
+      '04n': `<svg viewBox="0 0 64 64" fill="#39455a" stroke="#2d3e59" stroke-width="3" stroke-linejoin="round"><ellipse cx="32" cy="35" rx="28" ry="18"/></svg>`, // broken clouds night
+      '09d': `<svg viewBox="0 0 64 64" fill="none" stroke="#5797c4" stroke-width="3" stroke-linecap="round"><ellipse cx="32" cy="30" rx="22" ry="15" fill="#aad0f5" /><line x1="22" y1="38" x2="22" y2="50"/><line x1="32" y1="36" x2="32" y2="52"/><line x1="42" y1="38" x2="42" y2="50"/></svg>`, // shower rain day
+      '09n': `<svg viewBox="0 0 64 64" fill="none" stroke="#3461a5" stroke-width="3" stroke-linecap="round"><ellipse cx="32" cy="30" rx="22" ry="15" fill="#435789" /><line x1="22" y1="38" x2="22" y2="50"/><line x1="32" y1="36" x2="32" y2="52"/><line x1="42" y1="38" x2="42" y2="50"/></svg>`, // shower rain night
+      '10d': `<svg viewBox="0 0 64 64" fill="none" stroke="#4a90e2" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="30" r="15" fill="#a6c8ff"/><line x1="25" y1="35" x2="25" y2="52"/><line x1="30" y1="37" x2="30" y2="55"/><line x1="38" y1="37" x2="38" y2="55"/></svg>`, // rain day
+      '10n': `<svg viewBox="0 0 64 64" fill="none" stroke="#3565a3" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="30" r="15" fill="#3d4f75"/><line x1="25" y1="35" x2="25" y2="52"/><line x1="30" y1="37" x2="30" y2="55"/><line x1="38" y1="37" x2="38" y2="55"/></svg>`, // rain night
+      '11d': `<svg viewBox="0 0 64 64" fill="none" stroke="#e5e31c" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="30" r="15" fill="#faeb3f"/><polyline points="32 20 32 36 24 30 40 30" stroke="#e5e31c" stroke-width="2" fill="none"/></svg>`, // thunderstorm day
+      '11n': `<svg viewBox="0 0 64 64" fill="none" stroke="#d4d400" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="30" r="15" fill="#9f9f2b"/><polyline points="32 20 32 36 24 30 40 30" stroke="#d4d400" stroke-width="2" fill="none"/></svg>`, // thunderstorm night
+      '13d': `<svg viewBox="0 0 64 64" fill="none" stroke="#dfe8f6" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="29" r="14" fill="#c9dafc"/><line x1="21" y1="47" x2="21" y2="58"/><line x1="32" y1="47" x2="32" y2="58"/><line x1="43" y1="47" x2="43" y2="58"/></svg>`, // snow day
+      '13n': `<svg viewBox="0 0 64 64" fill="none" stroke="#aab4cf" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="29" r="14" fill="#7784aa"/><line x1="21" y1="47" x2="21" y2="58"/><line x1="32" y1="47" x2="32" y2="58"/><line x1="43" y1="47" x2="43" y2="58"/></svg>`, // snow night
+      '50d': `<svg viewBox="0 0 64 64" fill="none"><path d="M16 35h32M16 40h32M16 45h32" stroke="#b1bef7" stroke-width="4" stroke-linecap="round"/></svg>`, // mist day
+      '50n': `<svg viewBox="0 0 64 64" fill="none"><path d="M16 35h32M16 40h32M16 45h32" stroke="#6e76a9" stroke-width="4" stroke-linecap="round"/></svg>`, // mist night
+    };
+
+    // Elements
+    const form = document.getElementById('searchForm');
+    const cityInput = document.getElementById('cityInput');
+    const weatherIconContainer = document.getElementById('weatherIcon');
+    const tempValue = document.getElementById('tempValue');
+    const description = document.getElementById('weatherDescription');
+    const humidity = document.getElementById('humidity');
+    const windSpeed = document.getElementById('windSpeed');
+
+    // Show weather data dynamically from API
+    async function getWeather(city) {
+      try {
+        // Clear previous icon and text to show loading state
+        weatherIconContainer.innerHTML = '';
+        tempValue.textContent = '--';
+        description.textContent = 'Loading...';
+        humidity.textContent = '-- %';
+        windSpeed.textContent = '-- km/h';
+
+        // Fetch weather data (metric units for Celsius, wind km/h)
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`);
+        if (!res.ok) throw new Error('City not found');
+        const data = await res.json();
+
+        // Extract needed data
+        const temp = Math.round(data.main.temp);
+        const weatherDesc = data.weather[0].description;
+        const iconCode = data.weather[0].icon;
+        const hum = data.main.humidity;
+        const wind = Math.round(data.wind.speed * 3.6); // convert m/s to km/h
+
+        // Update UI
+        tempValue.textContent = temp;
+        description.textContent = weatherDesc;
+        humidity.textContent = hum + ' %';
+        windSpeed.textContent = wind + ' km/h';
+
+        // Insert appropriate icon or fallback if not found
+        if (iconMap[iconCode]) {
+          weatherIconContainer.innerHTML = iconMap[iconCode];
+        } else {
+          weatherIconContainer.innerHTML = '';
+        }
+      } catch (err) {
+        description.textContent = 'City not found or API error';
+        tempValue.textContent = '--';
+        humidity.textContent = '-- %';
+        windSpeed.textContent = '-- km/h';
+        weatherIconContainer.innerHTML = '';
+      }
+    }
+
+    // On form submit, fetch new weather data
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const city = cityInput.value.trim();
+      if (city.length) {
+        getWeather(city);
+        cityInput.blur();
+      }
+    });
+
+    // Initiate with 'Delhi' as default city for demo
+    window.onload = () => getWeather('Delhi');
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazin - Online Shopping</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f3f3;
+            min-height: 100vh;
+        }
+
+        .search-bar:focus-within {
+            box-shadow: 0 0 0 3px #fdbd01;
+        }
+
+        .nav-link:hover {
+            border-bottom: 2px solid white;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .deal-section {
+            background: linear-gradient(to right, #232f3e, #37475a);
+        }
+
+        .category-card:hover {
+            transform: scale(1.03);
+        }
+
+        .add-to-cart-btn {
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #e39a00;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-[#131921] text-white">
+        <div class="container mx-auto px-4 py-2">
+            <div class="flex items-center">
+                <!-- Logo -->
+                <div class="mr-4">
+                    <a href="#" class="text-2xl font-bold flex items-center">
+                        <span class="text-[#ff9900]">Amazin</span>
+                        <span class="text-white">.com</span>
+                    </a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="flex flex-1 mx-6">
+                    <div class="search-bar flex bg-[#fdbd01] rounded-md overflow-hidden">
+                        <select class="bg-gray-100 text-gray-800 px-2 text-sm border-r border-gray-300">
+                            <option>All</option>
+                            <option>Electronics</option>
+                            <option>Books</option>
+                            <option>Home</option>
+                            <option>Fashion</option>
+                        </select>
+                        <input type="text" class="w-full px-4 py-2 focus:outline-none" placeholder="Search Amazin.com">
+                        <button class="bg-[#f3a847] px-6 py-2">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Nav Links -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="nav-link flex flex-col items-center text-xs">
+                        <span class="text-gray-300">Hello, Sign in</span>
+                        <span class="font-bold">Account & Lists</span>
+                    </a>
+                    <a href="#" class="nav-link flex flex-col items-center text-xs">
+                        <span class="text-gray-300">Returns</span>
+                        <span class="font-bold">& Orders</span>
+                    </a>
+                    <a href="#" class="nav-link flex flex-col items-center text-xs">
+                        <span class="text-gray-300">Your</span>
+                        <span class="font-bold">Prime</span>
+                    </a>
+                    <a href="#" class="flex items-center relative">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        <span class="text-xs font-bold">Cart (0)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Nav -->
+        <div class="bg-[#232f3e] py-2 px-4">
+            <div class="flex items-center space-x-4 overflow-x-auto whitespace-nowrap">
+                <a href="#" class="text-sm text-white flex items-center">
+                    <i class="fas fa-bars mr-1"></i>
+                    All
+                </a>
+                <a href="#" class="text-sm text-white">Today's Deals</a>
+                <a href="#" class="text-sm text-white">Customer Service</a>
+                <a href="#" class="text-sm text-white">Gift Cards</a>
+                <a href="#" class="text-sm text-white">Registry</a>
+                <a href="#" class="text-sm text-white">Sell</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Hero Banner -->
+        <div class="mb-6">
+            <img src="https://m.media-amazon.com/images/G/31/img21/CEPC/Gold_Launch/T2/Changesss/PD_Main_Event_PD25_Deals_Header_PC._CB788739264_.jpg"
+                alt="Amazon Prime Day banner featuring electronics deals with bright yellow Prime Day logo"
+                class="w-full rounded-lg">
+        </div>
+
+        <!-- Categories Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-bold mb-4">Shop by Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <a href="#" class="category-card bg-white rounded-lg p-4 shadow-sm transition duration-300">
+                    <div class="text-center">
+                        <img src="https://plus.unsplash.com/premium_photo-1679079456083-9f288e224e96?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZWxlY3Ryb25pYyUyMGRldmljZXN8ZW58MHx8MHx8fDA%3D"
+                            alt="Electronics category with laptop, smartphone and headphones icons"
+                            class="mx-auto mb-2">
+                        <span class="text-sm font-medium">Electronics</span>
+                    </div>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-4 shadow-sm transition duration-300">
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1705660800046-2113f479369a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fEJvb2tzJTIwY2F0ZWdvcnklMjB3aXRoJTIwc3RhY2tlZCUyMGNvbG9yZnVsJTIwYm9va3N8ZW58MHx8MHx8fDA%3D"
+                            alt="Books category with stacked colorful books" class="mx-auto mb-2">
+                        <span class="text-sm font-medium">Books</span>
+                    </div>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-4 shadow-sm transition duration-300">
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1628843202042-8377d64988bd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fEhvbWUlMjBhbmQlMjBraXRjaGVuJTIwYXBwbGlhbmNlcyUyMGNhdGVnb3J5fGVufDB8fDB8fHww" alt="Home and kitchen appliances category"
+                            class="mx-auto mb-2">
+                        <span class="text-sm font-medium">Home & Kitchen</span>
+                    </div>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-4 shadow-sm transition duration-300">
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1573879500655-98f2012dd1db?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fEZhc2hpb24lMjBjYXRlZ29yeSUyMHdpdGglMjBjbG90aGluZyUyMGFuZCUyMGFjY2Vzc29yaWVzfGVufDB8fDB8fHww" alt="Fashion category with clothing and accessories"
+                            class="mx-auto mb-2">
+                        <span class="text-sm font-medium">Fashion</span>
+                    </div>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-4 shadow-sm transition duration-300">
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1594966642034-bbf0029a7488?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fEJlYXV0eSUyMGFuZCUyMHBlcnNvbmFsJTIwY2FyZSUyMHByb2R1Y3RzfGVufDB8fDB8fHww" alt="Beauty and personal care products"
+                            class="mx-auto mb-2">
+                        <span class="text-sm font-medium">Beauty</span>
+                    </div>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-4 shadow-sm transition duration-300">
+                    <div class="text-center">
+                        <img src="https://images.unsplash.com/photo-1733147703370-169a77564c60?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fFRveXMlMjBhbmQlMjBnYW1lcyUyMGNvbGxlY3Rpb258ZW58MHx8MHx8fDA%3D" alt="Toys and games collection" class="mx-auto mb-2">
+                        <span class="text-sm font-medium">Toys & Games</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Featured Deals Section -->
+        <section class="deal-section text-white rounded-lg p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Today's Deals</h2>
+                <a href="#" class="text-[#f3a847] text-sm hover:underline">See all deals</a>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="bg-white rounded-lg p-4 product-card transition duration-300">
+                    <div class="relative mb-2">
+                        <img src="https://images.unsplash.com/photo-1509098681029-b45e9c845022?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8UHJlbWl1bSUyMFdpcmVsZXNzJTIwSGVhZHBob25lcyUyMHdpdGglMjBOb2lzZSUyMENhbmNlbGxhdGlvbnxlbnwwfHwwfHx8MA%3D%3D"
+                            alt="Wireless Bluetooth headphones with noise cancellation in black"
+                            class="w-full h-32 object-contain">
+                        <span class="absolute top-0 left-0 bg-red-600 text-white text-xs px-2 py-1">40% off</span>
+                    </div>
+                    <div class="text-black">
+                        <h3 class="text-sm font-medium line-clamp-2">Premium Wireless Headphones with Noise Cancellation
+                        </h3>
+                        <div class="flex items-center mt-1">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(12,345)</span>
+                        </div>
+                        <div class="flex items-baseline mt-1">
+                            <span class="text-lg font-bold">$59.99</span>
+                            <span class="text-gray-500 text-sm line-through ml-2">$99.99</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn w-full mt-2 bg-[#f7ca00] text-black py-1 px-4 rounded-md text-sm font-medium">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 product-card transition duration-300">
+                    <div class="relative mb-2">
+                        <img src="https://images.unsplash.com/photo-1664219625223-20c7da833899?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8U21hcnR3YXRjaCUyMHdpdGglMjBmaXRuZXNzJTIwdHJhY2tpbmclMjBmZWF0dXJlcyUyMGluJTIwc2lsdmVyfGVufDB8fDB8fHww" alt="Smartwatch with fitness tracking features in silver"
+                            class="w-full h-32 object-contain">
+                        <span class="absolute top-0 left-0 bg-red-600 text-white text-xs px-2 py-1">25% off</span>
+                    </div>
+                    <div class="text-black">
+                        <h3 class="text-sm font-medium line-clamp-2">Smart Watch with Fitness Tracking & Heart Rate
+                            Monitor</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(8,762)</span>
+                        </div>
+                        <div class="flex items-baseline mt-1">
+                            <span class="text-lg font-bold">$79.99</span>
+                            <span class="text-gray-500 text-sm line-through ml-2">$106.99</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn w-full mt-2 bg-[#f7ca00] text-black py-1 px-4 rounded-md text-sm font-medium">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 product-card transition duration-300">
+                    <div class="relative mb-2">
+                        <img src="https://images.unsplash.com/photo-1645924489182-b99da068a71a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8MyUyMGluJTIwMSUyMFdpcmVsZXNzJTIwQ2hhcmdpbmclMjBTdGF0aW9uJTIwZm9yJTIwUGhvbmUlMkMlMjBXYXRjaCUyQ3xlbnwwfHwwfHx8MA%3D%3D" alt="Wireless charging pad for multiple devices"
+                            class="w-full h-32 object-contain">
+                        <span class="absolute top-0 left-0 bg-red-600 text-white text-xs px-2 py-1">30% off</span>
+                    </div>
+                    <div class="text-black">
+                        <h3 class="text-sm font-medium line-clamp-2">3-in-1 Wireless Charging Station for Phone, Watch,
+                            & Earbuds</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(3,421)</span>
+                        </div>
+                        <div class="flex items-baseline mt-1">
+                            <span class="text-lg font-bold">$34.99</span>
+                            <span class="text-gray-500 text-sm line-through ml-2">$49.99</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn w-full mt-2 bg-[#f7ca00] text-black py-1 px-4 rounded-md text-sm font-medium">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 product-card transition duration-300">
+                    <div class="relative mb-2">
+                        <img src="https://images.unsplash.com/photo-1585683845657-b59492b2c4b8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8VGhlJTIwUHN5Y2hvbG9neSUyMG9mJTIwTW9uZXklM0ElMjBUaW1lbGVzcyUyMExlc3NvbnMlMjBvbiUyMFdlYWx0aHxlbnwwfHwwfHx8MA%3D%3D" alt="Hardcover book with abstract cover design"
+                            class="w-full h-32 object-contain">
+                        <span class="absolute top-0 left-0 bg-red-600 text-white text-xs px-2 py-1">Bestseller</span>
+                    </div>
+                    <div class="text-black">
+                        <h3 class="text-sm font-medium line-clamp-2">The Psychology of Money: Timeless Lessons on Wealth
+                        </h3>
+                        <div class="flex items-center mt-1">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(15,892)</span>
+                        </div>
+                        <div class="flex items-baseline mt-1">
+                            <span class="text-lg font-bold">$12.99</span>
+                            <span class="text-gray-500 text-sm line-through ml-2">$19.99</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn w-full mt-2 bg-[#f7ca00] text-black py-1 px-4 rounded-md text-sm font-medium">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="mb-8">
+            <h2 class="text-xl font-bold mb-4">Popular in Electronics</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="bg-white rounded-lg p-4 product-card transition duration-300">
+                    <div class="mb-2">
+                        <img src="https://images.unsplash.com/photo-1655802887054-e945ff2517d0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fFNtYXJ0cGhvbmUlMjAxMjhHQiUyME1lbW9yeSUyQyUyMDYuNSUyMiUyMERpc3BsYXl8ZW58MHx8MHx8fDA%3D" alt="Latest smartphone model with triple camera"
+                            class="w-full h-32 object-contain">
+                    </div>
+                    <div class="text-black">
+                        <h3 class="text-sm font-medium line-clamp-2">Smartphone 128GB Memory, 6.5" Display</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(9,876)</span>
+                        </div>
+                        <div class="mt-1">
+                            <span class="text-lg font-bold">$499.99</span>
+                        </div>
+                        <div class="text-green-600 text-xs mt-1">FREE delivery Tomorrow</div>
+                        <button
+                            class="add-to-cart-btn w-full mt-2 bg-[#f7ca00] text-black py-1 px-4 rounded-md text-sm font-medium">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 product-card transition duration-300">
+                    <div class="mb-2">
+                        <img src="https://images.unsplash.com/photo-1601944177325-f8867652837f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fDU1JTIyJTIwNEslMjBVbHRyYSUyMEhEJTIwU21hcnQlMjBUViUyMHdpdGglMjBIRFJ8ZW58MHx8MHx8fDA%3D" alt="4K ultra HD smart TV with thin bezels"
+                            class="w-full h-32 object-contain">
+                    </div>
+                    <div class="text-black">
+                        <h3 class="text-sm font-medium line-clamp-2">55" 4K Ultra HD Smart TV with HDR</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(5,432)</span>
+                        </div>
+                        <div class="mt-1">
+                            <span class="text-lg font-bold">$399.99</span>
+                        </div>
+                        <div class="text-green-600 text-xs mt-1">FREE delivery</div>
+                        <button
+                            class="add-to-cart-btn w-full mt-2 bg-[#f7ca00] text-black py-1 px-4 rounded-md text-sm font-medium">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 product-card transition duration-300">
+                    <div class="mb-2">
+                        <img src="https://images.unsplash.com/photo-1668877780029-9f75961fcf39?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fEdhbWluZyUyMExhcHRvcCUyMDE2R0IlMjBSQU0lMkMlMjAxVEIlMjBTU0QlMkMlMjBSVFglMjBHcmFwaGljc3xlbnwwfHwwfHx8MA%3D%3D" alt="Gaming laptop with RGB keyboard"
+                            class="w-full h-32 object-contain">
+                    </div>
+                    <div class="text-black">
+                        <h3 class="text-sm font-medium line-clamp-2">Gaming Laptop 16GB RAM, 1TB SSD, RTX Graphics</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(2,345)</span>
+                        </div>
+                        <div class="mt-1">
+                            <span class="text-lg font-bold">$1,299.99</span>
+                        </div>
+                        <div class="text-green-600 text-xs mt-1">FREE delivery Friday</div>
+                        <button
+                            class="add-to-cart-btn w-full mt-2 bg-[#f7ca00] text-black py-1 px-4 rounded-md text-sm font-medium">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 product-card transition duration-300">
+                    <div class="mb-2">
+                        <img src="https://images.unsplash.com/photo-1727513195039-d3bf2ce0856b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8VHJ1ZSUyMFdpcmVsZXNzJTIwRWFyYnVkcyUyQyUyMDI0aHIlMjBCYXR0ZXJ5fGVufDB8fDB8fHww" alt="Wireless earbuds with charging case"
+                            class="w-full h-32 object-contain">
+                    </div>
+                    <div class="text-black">
+                        <h3 class="text-sm font-medium line-clamp-2">True Wireless Earbuds, 24hr Battery</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(7,654)</span>
+                        </div>
+                        <div class="mt-1">
+                            <span class="text-lg font-bold">$79.99</span>
+                        </div>
+                        <div class="text-green-600 text-xs mt-1">FREE delivery</div>
+                        <button
+                            class="add-to-cart-btn w-full mt-2 bg-[#f7ca00] text-black py-1 px-4 rounded-md text-sm font-medium">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#232f3e] text-white">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold mb-4">Get to Know Us</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline">Careers</a></li>
+                        <li><a href="#" class="hover:underline">Blog</a></li>
+                        <li><a href="#" class="hover:underline">About Amazin</a></li>
+                        <li><a href="#" class="hover:underline">Investor Relations</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Make Money with Us</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline">Sell products on Amazin</a></li>
+                        <li><a href="#" class="hover:underline">Sell on Amazin Business</a></li>
+                        <li><a href="#" class="hover:underline">Become an Affiliate</a></li>
+                        <li><a href="#" class="hover:underline">Advertise Your Products</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Amazin Payment Products</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline">Amazin Business Card</a></li>
+                        <li><a href="#" class="hover:underline">Shop with Points</a></li>
+                        <li><a href="#" class="hover:underline">Reload Your Balance</a></li>
+                        <li><a href="#" class="hover:underline">Amazin Currency Converter</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold mb-4">Let Us Help You</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:underline">Your Account</a></li>
+                        <li><a href="#" class="hover:underline">Your Orders</a></li>
+                        <li><a href="#" class="hover:underline">Shipping Rates & Policies</a></li>
+                        <li><a href="#" class="hover:underline">Returns & Replacements</a></li>
+                        <li><a href="#" class="hover:underline">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-600 pt-6">
+                <div class="flex flex-col items-center">
+                    <div class="mb-4">
+                        <a href="#" class="text-2xl font-bold flex items-center">
+                            <span class="text-[#ff9900]">Amazin</span>
+                            <span class="text-white">.com</span>
+                        </a>
+                    </div>
+                    <div class="flex space-x-6 mb-4">
+                        <a href="#" class="text-xs hover:underline">Conditions of Use</a>
+                        <a href="#" class="text-xs hover:underline">Privacy Notice</a>
+                        <a href="#" class="text-xs hover:underline">Interest-Based Ads</a>
+                    </div>
+                    <div class="text-xs text-gray-400">
+                        © 1996-2023, Amazin.com, Inc. or its affiliates
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cart functionality
+        let cartCount = 0;
+        const cartItems = [];
+
+        // Add to cart buttons
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                cartCount++;
+                document.querySelector('.fa-shopping-cart + span').textContent = `Cart (${cartCount})`;
+
+                // Animation
+                button.textContent = 'Added!';
+                button.style.backgroundColor = '#4CAF50';
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                    button.style.backgroundColor = '#f7ca00';
+                }, 1500);
+
+                // Add item to cart (simplified)
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('h3').textContent;
+                const productPrice = productCard.querySelector('.font-bold').textContent;
+
+                cartItems.push({
+                    name: productName,
+                    price: productPrice
+                });
+
+                console.log('Cart updated:', cartItems);
+            });
+        });
+
+        // Mobile menu toggle (would need additional HTML)
+        // Search functionality would be implemented here
+    </script>
+</body>
+
+</html>
